@@ -11,10 +11,11 @@ License:	GPL
 URL:		https://computing.llnl.gov/linux/genders.html
 Source0:	http://mesh.dl.sourceforge.net/sourceforge/genders/%{name}-%{version}.tar.gz
 BuildRequires:	autoconf
-BuildRequires:	chrpath
 BuildRequires:	byacc
+BuildRequires:	chrpath
 BuildRequires:	flex
 BuildRequires:	libtool
+BuildRequires:	perl-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
