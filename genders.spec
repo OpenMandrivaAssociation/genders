@@ -4,7 +4,7 @@
 
 Summary:	Static cluster configuration database
 Name:		genders
-Version:	1.11
+Version:	1.13
 Release:	%mkrel 1
 Group:		System/Libraries
 License:	GPL
