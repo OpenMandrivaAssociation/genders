@@ -7,7 +7,7 @@
 Summary:	Static cluster configuration database
 Name:		genders
 Version:	1.18
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		System/Libraries
 License:	GPL
 URL:		https://computing.llnl.gov/linux/genders.html
@@ -182,3 +182,38 @@ rm -rf %{buildroot}
 %{python_sitearch}/genders.py
 %{python_sitearch}/libgenders-*-py*.egg-info
 %{python_sitearch}/libgenders.so
+
+
+%changelog
+* Mon Jun 06 2011 Oden Eriksson <oeriksson@mandriva.com> 1.18-1mdv2011.0
++ Revision: 682907
+- 1.18
+
+* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 1.13-5
++ Revision: 664820
+- mass rebuild
+
+* Sun Aug 01 2010 Funda Wang <fwang@mandriva.org> 1.13-4mdv2011.0
++ Revision: 564237
+- rebuild for perl 5.12.1
+
+* Wed Jul 21 2010 Jérôme Quelin <jquelin@mandriva.org> 1.13-3mdv2011.0
++ Revision: 556349
+- rebuild for perl 5.12
+
+* Mon Mar 15 2010 Oden Eriksson <oeriksson@mandriva.com> 1.13-2mdv2010.1
++ Revision: 520113
+- rebuilt for 2010.1
+
+* Sun Jun 21 2009 Oden Eriksson <oeriksson@mandriva.com> 1.13-1mdv2010.0
++ Revision: 387849
+- 1.13
+
+* Thu Jan 29 2009 Oden Eriksson <oeriksson@mandriva.com> 1.11-1mdv2009.1
++ Revision: 335144
+- fix deps
+- import genders
+
+
+* Thu Jan 29 2009 Oden Eriksson <oeriksson@mandriva.com> 1.11-1mdv2009.1
+- initial Mandriva package
