@@ -1,24 +1,23 @@
-%define	major 0
+%define	major	0
+%define	majorpp	1
 %define libname	%mklibname genders %{major}
-%define develname %mklibname -d genders
-
-%define gendersplusplus_libname	%mklibname gendersplusplus 1
+%define libnamepp %mklibname gendersplusplus %{majorpp}
+%define devname %mklibname -d genders
 
 Summary:	Static cluster configuration database
 Name:		genders
 Version:	1.18
-Release:	%mkrel 3
+Release:	3
 Group:		System/Libraries
-License:	GPL
-URL:		https://computing.llnl.gov/linux/genders.html
+License:	GPLv2
+Url:		https://computing.llnl.gov/linux/genders.html
 Source0:	http://mesh.dl.sourceforge.net/sourceforge/genders/%{name}-%{version}.tar.gz
 BuildRequires:	byacc
 BuildRequires:	flex
 BuildRequires:	libtool
 BuildRequires:	perl-devel
-BuildRequires:	python-devel
-BuildRequires:	libstdc++-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRequires:	stdc++-devel
+BuildRequires:	pkgconfig(python)
 
 %description
 Genders is a static cluster configuration database used for cluster
@@ -34,47 +33,24 @@ Summary:	Static cluster configuration database library
 Group:          System/Libraries
 
 %description -n	%{libname}
-Genders is a static cluster configuration database used for cluster
-configuration management.  It is used by a variety of tools and scripts for
-management of large clusters.  The genders database is typically replicated
-on every node of the cluster. It describes the layout and configuration of
-the cluster so that tools and scripts can sense the variations of cluster
-nodes. By abstracting this information into a plain text file, it becomes
-possible to change the configuration of a cluster by modifying only one file.
+This package contains a shared library for %{name}.
 
-%package -n	%{gendersplusplus_libname}
+%package -n	%{libnamepp}
 Summary:	Static cluster configuration database C++ library
 Group:          System/Libraries
 
-%description -n	%{gendersplusplus_libname}
-Genders is a static cluster configuration database used for cluster
-configuration management.  It is used by a variety of tools and scripts for
-management of large clusters.  The genders database is typically replicated
-on every node of the cluster. It describes the layout and configuration of
-the cluster so that tools and scripts can sense the variations of cluster
-nodes. By abstracting this information into a plain text file, it becomes
-possible to change the configuration of a cluster by modifying only one file.
-
+%description -n	%{libnamepp}
 This package contains the C++ bindings for genders.
 
-
-%package -n	%{develname}
-Summary:	Static library and header files for the genders library
+%package -n	%{devname}
+Summary:	Development library and header files for the genders library
 Group:		Development/C
 Provides:	%{name}-devel = %{version}
-Provides:	lib%{name}-devel = %{version}
 Requires:	%{libname} = %{version}
+Requires:	%{libnamepp} = %{version}
 
-%description -n	%{develname}
-Genders is a static cluster configuration database used for cluster
-configuration management.  It is used by a variety of tools and scripts for
-management of large clusters.  The genders database is typically replicated
-on every node of the cluster. It describes the layout and configuration of
-the cluster so that tools and scripts can sense the variations of cluster
-nodes. By abstracting this information into a plain text file, it becomes
-possible to change the configuration of a cluster by modifying only one file.
-
-This package contains the static genders library and its header files.
+%description -n	%{devname}
+This package contains the development genders library and its header files.
 
 %package	compat
 Summary:	Compatability library
@@ -100,23 +76,19 @@ Group:		Development/Python
 This package provides a python interface for querying a genders file.
 
 %prep
-
-%setup  -q -n %{name}-%{version}
+%setup  -q
 
 %build
-
 %configure2_5x \
-    --with-genders-file=%{_sysconfdir}/%{name} \
-    --with-perl-site-arch \
-    --with-extension-destdir=%{buildroot}
+	--disable-static \
+	--with-genders-file=%{_sysconfdir}/%{name} \
+	--with-perl-site-arch \
+	--with-extension-destdir=%{buildroot}
 
 make LD_RUN_PATH=""
 
 %install
-rm -rf %{buildroot}
-
 install -d %{buildroot}%{_sysconfdir}
-
 %makeinstall_std LD_RUN_PATH=""
 
 install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
@@ -124,52 +96,30 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 # bork
 mv %{buildroot}/usr/local/share/man/man3/Libgenders.3pm %{buildroot}%{_mandir}/man3/Libgenders.3pm
 
-%if %mdkversion < 200900
-
-%post -n %{libname} -p /sbin/ldconfig
-
-%post -n %{gendersplusplus_libname} -p /sbin/ldconfig
-
-%postun -n %{libname} -p /sbin/ldconfig
-
-%postun -n %{gendersplusplus_libname} -p /sbin/ldconfig
-
-%endif
-
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
+%doc README NEWS ChangeLog DISCLAIMER DISCLAIMER.UC COPYING TUTORIAL
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}
 %{_bindir}/*
 %{_mandir}/man1/*
 
 %files -n %{libname}
-%defattr(-,root,root)
-%doc README NEWS ChangeLog DISCLAIMER DISCLAIMER.UC COPYING TUTORIAL
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}
-%{_libdir}/*.so.%{major}*
+%{_libdir}/libgenders.so.%{major}*
 
-%files -n %{gendersplusplus_libname}
-%defattr(-,root,root)
-%{_libdir}/libgendersplusplus.so.1*
+%files -n %{libnamepp}
+%{_libdir}/libgendersplusplus.so.%{majorpp}*
 
-%files -n %{develname}
-%defattr(-,root,root)
+%files -n %{devname}
 %{_includedir}/*
 %{_libdir}/*.so
-%{_libdir}/*.*a
 %{_mandir}/man3/genders*
 %{_mandir}/man3/libgenders*
 
 %files compat
-%defattr(-,root,root)
 %{_mandir}/man3/gendlib*
 %dir %{_prefix}/lib/genders
 %{_prefix}/lib/genders/*
 
 %files -n perl-Libgenders
-%defattr(-,root,root)
 %{perl_sitearch}/Genders.pm
 %{perl_sitearch}/Libgenders.pm
 %dir %{perl_sitearch}/auto/Libgenders
@@ -178,42 +128,7 @@ rm -rf %{buildroot}
 %{_mandir}/man3/Libgenders.3pm*
 
 %files -n python-libgenders
-%defattr(-,root,root)
 %{python_sitearch}/genders.py
 %{python_sitearch}/libgenders-*-py*.egg-info
 %{python_sitearch}/libgenders.so
 
-
-%changelog
-* Mon Jun 06 2011 Oden Eriksson <oeriksson@mandriva.com> 1.18-1mdv2011.0
-+ Revision: 682907
-- 1.18
-
-* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 1.13-5
-+ Revision: 664820
-- mass rebuild
-
-* Sun Aug 01 2010 Funda Wang <fwang@mandriva.org> 1.13-4mdv2011.0
-+ Revision: 564237
-- rebuild for perl 5.12.1
-
-* Wed Jul 21 2010 Jérôme Quelin <jquelin@mandriva.org> 1.13-3mdv2011.0
-+ Revision: 556349
-- rebuild for perl 5.12
-
-* Mon Mar 15 2010 Oden Eriksson <oeriksson@mandriva.com> 1.13-2mdv2010.1
-+ Revision: 520113
-- rebuilt for 2010.1
-
-* Sun Jun 21 2009 Oden Eriksson <oeriksson@mandriva.com> 1.13-1mdv2010.0
-+ Revision: 387849
-- 1.13
-
-* Thu Jan 29 2009 Oden Eriksson <oeriksson@mandriva.com> 1.11-1mdv2009.1
-+ Revision: 335144
-- fix deps
-- import genders
-
-
-* Thu Jan 29 2009 Oden Eriksson <oeriksson@mandriva.com> 1.11-1mdv2009.1
-- initial Mandriva package
