@@ -128,7 +128,7 @@ mv %{buildroot}/usr/local/share/man/man3/Libgenders.3pm %{buildroot}%{_mandir}/m
 %{_mandir}/man3/Libgenders.3pm*
 
 %files -n python-libgenders
-%{python_sitearch}/genders.py
+%{python_sitearch}/genders.py*
 %{python_sitearch}/libgenders-*-py*.egg-info
 %{python_sitearch}/libgenders.so
 
