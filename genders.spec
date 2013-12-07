@@ -7,7 +7,7 @@
 Summary:	Static cluster configuration database
 Name:		genders
 Version:	1.20
-Release:	1
+Release:	2
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
