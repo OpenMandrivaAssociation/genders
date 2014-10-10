@@ -17,7 +17,7 @@ BuildRequires:	flex
 BuildRequires:	libtool
 BuildRequires:	perl-devel
 BuildRequires:	stdc++-devel
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python2)
 
 %description
 Genders is a static cluster configuration database used for cluster
@@ -79,6 +79,7 @@ This package provides a python interface for querying a genders file.
 %setup  -q
 
 %build
+export PYTHON=%__python2
 %configure2_5x \
 	--disable-static \
 	--with-genders-file=%{_sysconfdir}/%{name} \
@@ -128,7 +129,7 @@ mv %{buildroot}/usr/local/share/man/man3/Libgenders.3pm %{buildroot}%{_mandir}/m
 %{_mandir}/man3/Libgenders.3pm*
 
 %files -n python-libgenders
-%{python_sitearch}/genders.py*
-%{python_sitearch}/libgenders-*-py*.egg-info
-%{python_sitearch}/libgenders.so
+%{py2_platsitedir}/genders.py*
+%{py2_platsitedir}/libgenders-*-py*.egg-info
+%{py2_platsitedir}/libgenders.so
 
