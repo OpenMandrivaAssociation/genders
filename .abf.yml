@@ -1,4 +1,5 @@
 removed_sources:
   genders-1.18.tar.gz: fb87fc2c28ab672086d56dadc7615a81064473bf
-sources:
   genders-1.20.tar.gz: 3a1f3f7897c5443edb4d06bd8093b505078454e8
+sources:
+  genders-1.22.tar.gz: 60b8fa454c8f0559df4771e9dd7d164bece9fbcc

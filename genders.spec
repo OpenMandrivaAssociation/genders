@@ -6,12 +6,12 @@
 
 Summary:	Static cluster configuration database
 Name:		genders
-Version:	1.20
-Release:	8
+Version:	1.22
+Release:	1
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
-Source0:	http://mesh.dl.sourceforge.net/sourceforge/genders/%{name}-%{version}.tar.gz
+Source0:	http://sourceforge.net/projects/genders/files/genders/1.22-1/%{name}-%{version}.tar.gz
 BuildRequires:	byacc
 BuildRequires:	flex
 BuildRequires:	libtool
@@ -79,7 +79,7 @@ This package provides a python interface for querying a genders file.
 %setup  -q
 
 %build
-export PYTHON=%__python2
+export PYTHON=python2
 %configure2_5x \
 	--disable-static \
 	--with-genders-file=%{_sysconfdir}/%{name} \
@@ -132,4 +132,3 @@ mv %{buildroot}/usr/local/share/man/man3/Libgenders.3pm %{buildroot}%{_mandir}/m
 %{py2_platsitedir}/genders.py*
 %{py2_platsitedir}/libgenders-*-py*.egg-info
 %{py2_platsitedir}/libgenders.so
-
