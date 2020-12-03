@@ -77,7 +77,7 @@ Group:		Development/Python
 This package provides a python interface for querying a genders file.
 
 %prep
-%setup  -q
+%setup  -qn %{name}-%{name}-%{oversion}
 
 %build
 export PYTHON=%__python2
