@@ -81,8 +81,12 @@ This package provides a python interface for querying a genders file.
 %setup  -qn %{name}-%{name}-%{oversion}
 
 %build
-export PYTHON=%__python2
-%configure2_5x \
+# fix build on aarch64
+autoreconf -vfi -Iconfig
+
+export CPPFLAGS='-I/usr/lib/jvm/java-15-openjdk/include/ -I/usr/lib/jvm/java/include/linux -I../../../src/libgenders'
+export PYTHON=%__python3
+%configure \
 	--disable-static \
 	--with-genders-file=%{_sysconfdir}/%{name} \
 	--with-perl-site-arch \
