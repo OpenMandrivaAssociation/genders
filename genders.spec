@@ -105,7 +105,7 @@ install -d %{buildroot}%{_sysconfdir}
 install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 
 # bork
-mv %{buildroot}/usr/local/share/man/man3/Libgenders.3pm %{buildroot}%{_mandir}/man3/Libgenders.3pm
+#mv %{buildroot}/usr/local/share/man/man3/Libgenders.3pm %{buildroot}%{_mandir}/man3/Libgenders.3pm
 
 %files
 %doc README NEWS ChangeLog DISCLAIMER DISCLAIMER.UC COPYING TUTORIAL
