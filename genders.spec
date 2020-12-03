@@ -135,10 +135,9 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 
 %files -n perl-Libgenders
 %doc DISCLAIMER DISCLAIMER.UC COPYING
-#{perl_vendorarch}/Genders.pm
-#{perl_vendorarch}/Libgenders.pm
-#dir #{perl_vendorarch}/auto/Libgenders
-#{perl_vendorarch}/auto/Libgenders/Libgenders.so
+%{_libdir}/perl*/Genders.pm
+%{_libdir}/perl*/Libgenders.pm
+%{_libdir}/perl*/auto/Libgenders/Libgenders.so
 %{_mandir}/man3/Genders.3pm*
 %{_mandir}/man3/Libgenders.3pm*
 
