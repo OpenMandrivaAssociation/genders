@@ -113,6 +113,7 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 %{_datadir}/doc/genders-*.*-javadoc/*
 %{_bindir}/*
 %{_datadir}/java/Genders.jar
+%{_libdir}/libGendersjni.so.*
 %{_mandir}/man1/*
 
 %files -n %{libname}
