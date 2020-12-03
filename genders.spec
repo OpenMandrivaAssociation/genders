@@ -139,7 +139,7 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 %{_mandir}/man3/Libgenders.3pm*
 
 %files -n python-libgenders
-%{py2_platsitedir}/genders.py*
-%{py2_platsitedir}/libgenders-*-py*.egg-info
-%{py2_platsitedir}/libgenders.so
+#{py2_platsitedir}/genders.py*
+#{py2_platsitedir}/libgenders-*-py*.egg-info
+#{py2_platsitedir}/libgenders.so
 
