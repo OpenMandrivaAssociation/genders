@@ -110,7 +110,9 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 %files
 %doc README NEWS ChangeLog DISCLAIMER DISCLAIMER.UC COPYING TUTORIAL
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}
+%{_datadir}/doc/genders-*.*-javadoc/*
 %{_bindir}/*
+%{_datadir}/java/Genders.jar
 %{_mandir}/man1/*
 
 %files -n %{libname}
@@ -131,15 +133,18 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 %{_prefix}/lib/genders/*
 
 %files -n perl-Libgenders
-#{perl_sitearch}/Genders.pm
-#{perl_sitearch}/Libgenders.pm
-#dir #{perl_sitearch}/auto/Libgenders
-#{perl_sitearch}/auto/Libgenders/Libgenders.so
+%doc DISCLAIMER DISCLAIMER.UC COPYING
+%{perl_vendorarch}/Genders.pm
+%{perl_vendorarch}/Libgenders.pm
+%dir %{perl_vendorarch}/auto/Libgenders
+%{perl_vendorarch}/auto/Libgenders/Libgenders.so
 %{_mandir}/man3/Genders.3pm*
 %{_mandir}/man3/Libgenders.3pm*
 
 %files -n python-libgenders
-#{py2_platsitedir}/genders.py*
-#{py2_platsitedir}/libgenders-*-py*.egg-info
-#{py2_platsitedir}/libgenders.so
+%doc DISCLAIMER DISCLAIMER.UC COPYING
+%{python_sitearch}/genders.py*
+%{python_sitearch}/libgenders-*-py*.egg-info
+%{python_sitearch}/libgenders*.so
+%{python_sitearch}/__pycache__/*
 
