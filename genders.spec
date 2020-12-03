@@ -3,7 +3,7 @@
 
 
 %define	major	0
-%define	majorpp	1
+%define	majorpp	2
 %define libname	%mklibname genders %{major}
 %define libnamepp %mklibname gendersplusplus %{majorpp}
 %define devname %mklibname -d genders
