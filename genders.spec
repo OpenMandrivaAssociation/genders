@@ -19,6 +19,7 @@ BuildRequires:	libtool
 BuildRequires:	perl-devel
 BuildRequires:	stdc++-devel
 BuildRequires:	pkgconfig(python2)
+BuildRequires:  java-current-devel
 
 %description
 Genders is a static cluster configuration database used for cluster
