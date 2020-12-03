@@ -18,7 +18,7 @@ BuildRequires:	flex
 BuildRequires:	libtool
 BuildRequires:	perl-devel
 BuildRequires:	stdc++-devel
-BuildRequires:	pkgconfig(python2)
+BuildRequires:	pkgconfig(python)
 BuildRequires:  java-current-devel
 
 %description
