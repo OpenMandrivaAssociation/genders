@@ -17,6 +17,11 @@ Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
 Source0:	https://github.com/chaos/genders/archive/genders-%{oversion}/%{name}-%{oversion}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	byacc
 BuildRequires:	flex
 BuildRequires:	libtool
