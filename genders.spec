@@ -11,18 +11,17 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:	18
+Release:	19
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
 Source0:	https://github.com/chaos/genders/archive/genders-%{oversion}/%{name}-%{oversion}.tar.gz
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	make
 BuildRequires:	byacc
 BuildRequires:	flex
-BuildRequires:	libtool
 BuildRequires:	perl-devel
 BuildRequires:	stdc++-devel
 # Java optional; skip to keep rebuild focused on perl + C libs
@@ -81,10 +80,9 @@ This package provides a perl interface for querying a genders file.
 %setup -qn %{name}-%{name}-%{oversion}
 
 %build
-# Prefer GNU libtool over slibtool for reliable .so install
-export LIBTOOL=/usr/bin/libtool
+# Prefer slibtool (system default on OM); do not pull in GNU libtool
+export LIBTOOL=slibtool
 autoreconf -vfi -Iconfig || true
-# If project ships its own libtool, keep it; force configure to use gnu
 %configure \
 	--disable-static \
 	--with-genders-file=%{_sysconfdir}/%{name} \
@@ -93,15 +91,7 @@ autoreconf -vfi -Iconfig || true
 	--with-java-extensions=no \
 	--with-extension-destdir=%{buildroot}
 
-# Force GNU libtool if present after configure
-if [ -x /usr/bin/libtool ]; then
-  for lt in ./libtool */libtool */*/libtool; do
-    [ -f "$lt" ] || continue
-    cp -a /usr/bin/libtool "$lt" 2>/dev/null || true
-  done
-fi
-
-%make_build LD_RUN_PATH=""
+%make_build LD_RUN_PATH="" LIBTOOL=slibtool
 
 # Ensure shared libs actually exist after build
 find . -name 'libgenders.so*' -o -name 'libgendersplusplus.so*' | head -20
@@ -111,7 +101,7 @@ test -n "$(find . -name 'libgenders.so.*' -type f | head -1)"
 install -d %{buildroot}%{_sysconfdir}
 %make_install LD_RUN_PATH=""
 
-# GNU/slibtool often skip installing shared libs; copy from .libs explicitly
+# slibtool install can skip shared libs; copy from .libs explicitly
 install -d %{buildroot}%{_libdir}
 for so in $(find . -path '*/.libs/libgenders.so*' -type f -o -path '*/.libs/libgenders.so*' -type l); do
   # only real/shared objects and versioned symlinks from the right tree
