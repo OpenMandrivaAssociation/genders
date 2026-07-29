@@ -11,11 +11,12 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:	24
+Release:	25
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
 Source0:	https://github.com/chaos/genders/archive/genders-%{oversion}/%{name}-%{oversion}.tar.gz
+Source1:	genders.rpmlintrc
 Patch0:	genders-c23-pointer-cast.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
