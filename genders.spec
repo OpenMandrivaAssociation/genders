@@ -12,7 +12,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:13
+Release:14
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -100,7 +100,6 @@ autoreconf -vfi -Iconfig
 export CPPFLAGS='-I/usr/lib/jvm/java-15-openjdk/include/ -I/usr/lib/jvm/java/include/linux -I../../../src/libgenders'
 export PYTHON=%__python3
 %configure \
-
 	--disable-static \
 	--with-genders-file=%{_sysconfdir}/%{name} \
 	--with-perl-site-arch \
