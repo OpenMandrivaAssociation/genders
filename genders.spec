@@ -12,7 +12,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:9
+Release:10
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -101,6 +101,7 @@ export PYTHON=%__python3
 	--disable-static \
 	--with-genders-file=%{_sysconfdir}/%{name} \
 	--with-perl-site-arch \
+	--with-python-extensions=no \
 	--with-extension-destdir=%{buildroot}
 
 make LD_RUN_PATH=""
@@ -154,4 +155,4 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 %{python_sitearch}/libgenders-*-py*.egg-info
 %{python_sitearch}/libgenders*.so
 %{python_sitearch}/__pycache__/*
-
+%endif
