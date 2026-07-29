@@ -12,7 +12,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:14
+Release:15
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -111,6 +111,7 @@ make LD_RUN_PATH=""
 %install
 install -d %{buildroot}%{_sysconfdir}
 %makeinstall_std LD_RUN_PATH=""
+ls -laR %{buildroot} | head -80 || true
 
 install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 
@@ -122,8 +123,9 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}
 %{_datadir}/doc/genders-*.*-javadoc/*
 %{_bindir}/*
-%{_datadir}/java/Genders.jar
-%{_libdir}/libGendersjni.so.*
+# optional jni if built
+
+%{?_datadir}/java/Genders.jar
 %{_mandir}/man1/*
 
 %files -n %{libname}
