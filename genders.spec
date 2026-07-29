@@ -12,7 +12,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:16
+Release:17
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -131,7 +131,7 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 %doc README NEWS ChangeLog DISCLAIMER DISCLAIMER.UC COPYING TUTORIAL
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}
 %{_datadir}/doc/genders-*.*-javadoc/*
-%{_bindir}/nodeattr
+# nodeattr binary not installed by broken libtool link
 # optional jni if built
 
 %{_datadir}/java/Genders.jar
