@@ -11,7 +11,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:	21
+Release:	22
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -92,20 +92,19 @@ cat > libtool <<'EOS'
 exec slibtool "$@"
 EOS
 chmod +x libtool
-# Avoid %%configure: it re-runs automake and fails without GNU libtool m4
-./configure \
-	--prefix=%{_prefix} \
-	--libdir=%{_libdir} \
-	--bindir=%{_bindir} \
-	--includedir=%{_includedir} \
-	--mandir=%{_mandir} \
-	--sysconfdir=%{_sysconfdir} \
+# Prefer slibtool. Hide Makefile.am so %%configure does not re-run automake
+# (needs GNU libtool m4). Still get proper RPM CC/CFLAGS via %%configure.
+mv Makefile.am Makefile.am._skip_regen 2>/dev/null || true
+# Also hide nested Makefile.am that trigger the scan
+find . -name Makefile.am -exec mv {} {}._skip_regen \; 2>/dev/null || true
+%configure \
 	--disable-static \
 	--with-genders-file=%{_sysconfdir}/%{name} \
 	--with-perl-site-arch \
 	--with-python-extensions=no \
 	--with-java-extensions=no \
 	--with-extension-destdir=%{buildroot}
+find . -name 'Makefile.am._skip_regen' | while read f; do mv "$f" "${f%._skip_regen}"; done
 
 # After configure, ensure ./libtool invokes slibtool (not a missing GNU script)
 if [ ! -x libtool ] || file libtool | grep -q 'ELF'; then
