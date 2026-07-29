@@ -12,7 +12,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:12
+Release:13
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -80,12 +80,15 @@ Obsoletes:	perl-Genders
 %description -n	perl-Libgenders
 This package provides a perl interface for querying a genders file.
 
+%if 0
 %package -n	python-libgenders
 Summary:	Genders	interface
 Group:		Development/Python
 
 %description -n	python-libgenders
 This package provides a python interface for querying a genders file.
+%endif
+
 
 %prep
 %setup  -qn %{name}-%{name}-%{oversion}
