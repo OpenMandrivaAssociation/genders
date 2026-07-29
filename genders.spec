@@ -11,7 +11,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:	19
+Release:	20
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -80,9 +80,18 @@ This package provides a perl interface for querying a genders file.
 %setup -qn %{name}-%{name}-%{oversion}
 
 %build
-# Prefer slibtool (system default on OM); do not pull in GNU libtool
+# Prefer slibtool. Skip autoreconf (needs GNU libtool m4 for automake).
+# Upstream ships configure; re-run slibtoolize so ./libtool is slibtool-friendly.
 export LIBTOOL=slibtool
-autoreconf -vfi -Iconfig || true
+if command -v slibtoolize >/dev/null 2>&1; then
+  slibtoolize --copy --force || true
+fi
+# Provide a shell-wrapper libtool for makefiles that run "sh ./libtool"
+cat > libtool <<'EOS'
+#!/bin/sh
+exec slibtool "$@"
+EOS
+chmod +x libtool
 %configure \
 	--disable-static \
 	--with-genders-file=%{_sysconfdir}/%{name} \
@@ -91,6 +100,17 @@ autoreconf -vfi -Iconfig || true
 	--with-java-extensions=no \
 	--with-extension-destdir=%{buildroot}
 
+# After configure, ensure ./libtool invokes slibtool (not a missing GNU script)
+if [ ! -x libtool ] || file libtool | grep -q 'ELF'; then
+  cat > libtool <<'EOS'
+#!/bin/sh
+exec slibtool "$@"
+EOS
+  chmod +x libtool
+elif head -1 libtool | grep -qv '^#!'; then
+  # config-only file from slibtoolize: keep and use rlibtool/slibtool via LIBTOOL
+  :
+fi
 %make_build LD_RUN_PATH="" LIBTOOL=slibtool
 
 # Ensure shared libs actually exist after build
