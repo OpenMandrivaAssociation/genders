@@ -11,7 +11,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:	20
+Release:	21
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -92,7 +92,14 @@ cat > libtool <<'EOS'
 exec slibtool "$@"
 EOS
 chmod +x libtool
-%configure \
+# Avoid %%configure: it re-runs automake and fails without GNU libtool m4
+./configure \
+	--prefix=%{_prefix} \
+	--libdir=%{_libdir} \
+	--bindir=%{_bindir} \
+	--includedir=%{_includedir} \
+	--mandir=%{_mandir} \
+	--sysconfdir=%{_sysconfdir} \
 	--disable-static \
 	--with-genders-file=%{_sysconfdir}/%{name} \
 	--with-perl-site-arch \
