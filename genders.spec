@@ -11,7 +11,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:	23
+Release:	24
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -105,7 +105,7 @@ find . -name Makefile.am -exec mv {} {}._skip_regen \; 2>/dev/null || true
 	--with-perl-site-arch \
 	--with-python-extensions=no \
 	--with-java-extensions=no \
-	--with-extension-destdir=%{buildroot}
+	--with-extension-destdir=/
 find . -name 'Makefile.am._skip_regen' | while read f; do mv "$f" "${f%._skip_regen}"; done
 
 # After configure, ensure ./libtool invokes slibtool (not a missing GNU script)

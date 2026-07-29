@@ -1,0 +1,52 @@
+- Allow attribute values to be overwritten instead of causing errors
+  by some flag option of some sort.
+  o i.e. 
+    #! overwrite-flag
+    a,b,c,d,e,f,g,h,i   all,attr=val,printer=foo
+    g,h,i               printer=bar
+- Rework to allow multiple hashed attrval mappings?
+- List nodes in genders database with incremental ability 
+  mcr[1-50/2] would be mcr1,3,5,7,...
+  mcr[1-50/3] would be mcr1,4,7,10,...
+  - think about format, do through hostlist.[ch]??
+- Aliases for nodesets
+  o i.e.
+    @NODESET1    a,b,c,d,e
+    @NODESET2    f,g,h
+    @NODESET1,@NODESET2  attr1,attr2
+    @NODESET1            attr3
+- For multilib, repackage everything
+  - genders
+  - genders-lib
+  - genders-perl
+    - must be based on current perl install
+  - genders-compat
+- feed in genders file to nodeattr via stdin
+  - '-' option?
+- Support empty genders file
+- Tool to output all attrs and vals for multiple genders files
+- Genders query equivalent of testattr?
+- genders_getnodes return a hostlist range rather than a list
+- do genders query isolated to a specific node
+  - in libgenders and rest
+  - in nodeattr
+- genders -> netgroups and netgroups -> genders converter
+- a %r type expression?
+  - node[1-15]   ip=192.168.1.[2-16]
+  - with math?
+    node[0-255] 192.168.1.%r
+    node[256-511] 192.168.2.%r
+    node[512-767] 192.168.3.%r
+    <etc>
+
+    to
+
+    node[0-2047] 192.168.{%r/256 + 1}.{%r % 256}
+- genders value shouldn't have '=' in them.
+- make genders_load_data() way faster
+- int->unsigned int?
+- possible integer overflows all over the place?
+  - rehashing
+- readline stuff
+  - use file streams (i.e. fread) to avoid constant syscalls to read()
+- support FQDN

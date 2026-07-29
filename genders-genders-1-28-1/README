@@ -1,0 +1,47 @@
+Genders is a static cluster configuration database used for cluster
+configuration management.  It is used by a variety of tools and
+scripts for management of large clusters.  The genders database is
+typically replicated on every node of the cluster. It describes the
+layout and configuration of the cluster so that tools and scripts can
+sense the variations of cluster nodes. By abstracting this information
+into a plain text file, it becomes possible to change the
+configuration of a cluster by modifying only one file.
+
+This package includes:
+
+* libgenders    
+  - A C library for parsing and querying a genders database.  See
+    libgenders(3).
+
+* Libgenders.pm
+  - A Perl module developed with Perl Extensions that takes advantage
+    of the already available C library.  Perl extensions is limited
+    and provides an unorthodox Perl API.  It is therefore recommended
+    that users use Genders.pm.  See Libgenders(3).
+
+* Genders.pm
+  - A Perl module that interfaces with Libgenders.pm, hiding away the
+    ugliness of Libgenders.pm.  See Genders(3).
+
+* nodeattr
+  - A genders query tool that that parses and outputs information from
+    a genders database.  See nodeattr(1).
+
+* gendlib.pl
+  - Genders Perl API for backwards compatability.  For the most part,
+    this is used exclusively at Lawrence Livermore National
+    Laboratory.  This is probably of no use to anyone else.  See
+    gendlib(3).
+
+* Additional extensions
+  - Additional extensions for Genders with C++, Java, and Python are
+    also available.  See packages in src/extensions.
+
+Comments, patches, fixes, suggestions are always welcome.  Please read
+DISCLAIMER and COPYING for copyright and license information.
+
+For a thorough introduction to Genders, please read the TUTORIAL.
+
+Albert Chu
+chu11@llnl.gov
+Lawrence Livermore National Laboratories    

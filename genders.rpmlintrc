@@ -1,0 +1,8 @@
+addFilter("lib-package-without-%mklibname")
+addFilter("hardcoded-library-path")
+addFilter("rpm-buildroot-usage")
+addFilter("invalid-license")
+addFilter("no-%check-section")
+addFilter("mixed-use-of-spaces-and-tabs")
+addFilter("shared-dir-glob-in-files")
+addFilter("non-coherent-filename")

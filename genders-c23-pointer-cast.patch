@@ -1,5 +1,5 @@
---- /tmp/gpatch/genders-genders-1-28-1.orig/src/libgenders/genders_util.c	2020-05-15 21:52:08.000000000 +0200
-+++ /tmp/gpatch/genders-genders-1-28-1/src/libgenders/genders_util.c	2026-07-29 22:41:45.570886902 +0200
+--- genders-genders-1-28-1/src/libgenders/genders_util.c.orig	2020-05-15 21:52:08.000000000 +0200
++++ genders-genders-1-28-1/src/libgenders/genders_util.c	2026-07-29 22:41:45.000000000 +0200
 @@ -94,7 +94,7 @@
  {
    genders_attrvals_container_t avc;
