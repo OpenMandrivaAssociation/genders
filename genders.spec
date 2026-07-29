@@ -11,11 +11,12 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:	22
+Release:	23
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
 Source0:	https://github.com/chaos/genders/archive/genders-%{oversion}/%{name}-%{oversion}.tar.gz
+Patch0:	genders-c23-pointer-cast.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	slibtool
@@ -78,6 +79,7 @@ This package provides a perl interface for querying a genders file.
 
 %prep
 %setup -qn %{name}-%{name}-%{oversion}
+%patch -P0 -p1
 
 %build
 # Prefer slibtool. Skip autoreconf (needs GNU libtool m4 for automake).
@@ -117,6 +119,7 @@ elif head -1 libtool | grep -qv '^#!'; then
   # config-only file from slibtoolize: keep and use rlibtool/slibtool via LIBTOOL
   :
 fi
+export CFLAGS="$RPM_OPT_FLAGS -Wno-error=incompatible-pointer-types"
 %make_build LD_RUN_PATH="" LIBTOOL=slibtool
 
 # Ensure shared libs actually exist after build
