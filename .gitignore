@@ -1,0 +1,4 @@
+genders-genders-*
+srcbuild/
+*.tar.gz
+*.tar.bz2
