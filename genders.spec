@@ -12,7 +12,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:15
+Release:16
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -111,6 +111,15 @@ make LD_RUN_PATH=""
 %install
 install -d %{buildroot}%{_sysconfdir}
 %makeinstall_std LD_RUN_PATH=""
+# libtool sometimes skips installing the binary; ensure it lands
+if [ ! -e %{buildroot}%{_bindir}/nodeattr ]; then
+  install -d %{buildroot}%{_bindir}
+  install -m755 src/nodeattr/.libs/nodeattr %{buildroot}%{_bindir}/ 2>/dev/null || \
+  install -m755 src/nodeattr/nodeattr %{buildroot}%{_bindir}/ 2>/dev/null || true
+fi
+# ExtUtils may install .so as 0444; debuginfo needs write
+chmod -R u+w %{buildroot} || true
+
 ls -laR %{buildroot} | head -80 || true
 
 install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
@@ -122,10 +131,10 @@ install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 %doc README NEWS ChangeLog DISCLAIMER DISCLAIMER.UC COPYING TUTORIAL
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}
 %{_datadir}/doc/genders-*.*-javadoc/*
-%{_bindir}/*
+%{_bindir}/nodeattr
 # optional jni if built
 
-%{?_datadir}/java/Genders.jar
+%{_datadir}/java/Genders.jar
 %{_mandir}/man1/*
 
 %files -n %{libname}
