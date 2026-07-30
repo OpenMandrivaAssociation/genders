@@ -11,7 +11,7 @@ Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
 Version:	1.28.1
-Release:	25
+Release:	26
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -179,6 +179,15 @@ if [ ! -e %{buildroot}%{_bindir}/nodeattr ]; then
 fi
 
 chmod -R u+w %{buildroot} || true
+# slibtool leaves metadata next to .so; do not package
+find %{buildroot}%{_libdir} -name '*.def' -o -name '*.def.*' -o -name '*.slibtool.deps*' 2>/dev/null | xargs -r rm -f
+find %{buildroot}%{_libdir} \( -name 'lib*.so.def' -o -name 'lib*.so.def.*' -o -name 'lib*.so.slibtool*' \) -delete 2>/dev/null || true
+# more thorough
+rm -f %{buildroot}%{_libdir}/libgenders.so.def* \
+      %{buildroot}%{_libdir}/libgenders.so.slibtool* \
+      %{buildroot}%{_libdir}/libgendersplusplus.so.def* \
+      %{buildroot}%{_libdir}/libgendersplusplus.so.slibtool* 2>/dev/null || true
+
 install -m0644 genders.sample %{buildroot}%{_sysconfdir}/%{name}
 
 # Prove required files exist
