@@ -10,8 +10,8 @@
 Summary:	Static cluster configuration database
 Name:		genders
 %define oversion 1-28-1
-Version:	1.28.1
-Release:	26
+Version:	1.32.1
+Release:	1
 Group:		System/Libraries
 License:	GPLv2
 Url:		https://computing.llnl.gov/linux/genders.html
@@ -79,7 +79,7 @@ Obsoletes:	perl-Genders < %{version}
 This package provides a perl interface for querying a genders file.
 
 %prep
-%setup -qn %{name}-%{name}-%{oversion}
+%setup -qn %{name}-%{name}-%{oversion} -n genders-genders-1-28-1
 %patch -P0 -p1
 
 %build
